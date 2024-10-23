@@ -157,11 +157,16 @@ const Image = styled.div`
   background-size: cover;
   background-position: center;
 
-  @media (max-width: 768px) {
+  @media (max-width: 820px) {
     height: 500px;
   }
-
-  @media (max-width: 480px) {
+  @media (max-width: 700px) {
     height: 400px;
+  }
+  @media (max-width: 650px) {
+    height: 300px;
+  }
+  @media (max-width: 570px) {
+    height: 0;
   }
 `;
