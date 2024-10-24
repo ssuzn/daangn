@@ -7,17 +7,13 @@ import { GoSearch } from "react-icons/go";
 import { HiMiniBars3 } from "react-icons/hi2";
 
 function Header() {
-  const [showInput, setShowInput] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const navigate = useNavigate();
 
-  const toggleMenu = () => {
+  const handleMenuOpen = () => {
     setIsMenuOpen((prev) => !prev);
-  };
-
-  const toggleSearchIcon = () => {
-    setShowInput((prev) => !prev);
+    console.log("Menu opened");
   };
 
   return (
@@ -27,10 +23,15 @@ function Header() {
           src={logo}
           alt="logo"
           onClick={() => navigate("/")}
-          style={{ width: "65px", height: "38px", cursor: "pointer" }}
+          style={{
+            width: "65px",
+            height: "38px",
+            cursor: "pointer",
+            padding: "0 20px",
+          }}
         />
 
-        <NAV show={showInput}>
+        <NAV isMenuOpen={isMenuOpen}>
           <Ul>
             <Li>
               <StyledLink onClick={() => navigate("/fleamarket")}>
@@ -60,39 +61,40 @@ function Header() {
 
         <Side>
           <Search>
-            <SearchIcon show={showInput} onClick={toggleSearchIcon} />
+            <SearchIcon />
             <Input
               type="text"
               placeholder="물품이나 동네를 검색해보세요"
-              show={showInput}
             ></Input>
           </Search>
 
-          <HamburgerIcon show={showInput} onClick={toggleMenu} />
+          <HamburgerIcon onClick={handleMenuOpen} />
 
           <Chat>
-            <ChatButton show={showInput} isMenuOpen={isMenuOpen}>
-              채팅하기
-            </ChatButton>
+            <ChatButton>채팅하기</ChatButton>
           </Chat>
         </Side>
 
-        <User show={showInput}>
+        <User>
           <UserButton onClick={() => navigate("/login")}>로그인</UserButton>
           <UserButton onClick={() => navigate("/signup")}>회원가입</UserButton>
         </User>
 
-        <DropdownMenu className={isMenuOpen ? "open" : ""}>
-          <MenuItem onClick={() => navigate("/fleamarket")}>중고거래</MenuItem>
-          <MenuItem onClick={() => navigate("/nearby_stores")}>
-            동네업체
-          </MenuItem>
-          <MenuItem onClick={() => navigate("/jobs")}>알바</MenuItem>
-          <MenuItem onClick={() => navigate("/reality")}>부동산</MenuItem>
-          <MenuItem onClick={() => navigate("/cars")}>중고차 직거래</MenuItem>
-          <MenuItem onClick={() => navigate("/login")}>로그인</MenuItem>
-          <MenuItem>회원가입</MenuItem>
-        </DropdownMenu>
+        {isMenuOpen && (
+          <DropdownMenu isMenuOpen={isMenuOpen}>
+            <MenuItem onClick={() => navigate("/fleamarket")}>
+              중고거래
+            </MenuItem>
+            <MenuItem onClick={() => navigate("/nearby_stores")}>
+              동네업체
+            </MenuItem>
+            <MenuItem onClick={() => navigate("/jobs")}>알바</MenuItem>
+            <MenuItem onClick={() => navigate("/reality")}>부동산</MenuItem>
+            <MenuItem onClick={() => navigate("/cars")}>중고차 직거래</MenuItem>
+            <MenuItem onClick={() => navigate("/login")}>로그인</MenuItem>
+            <MenuItem>회원가입</MenuItem>
+          </DropdownMenu>
+        )}
       </DIV>
     </React.Fragment>
   );
@@ -110,7 +112,6 @@ const DIV = styled.div`
   z-index: 999;
   justify-content: space-evenly;
   align-items: center;
-  padding: 0 20px;
   flex-wrap: wrap;
   overflow: hidden;
 
@@ -125,10 +126,8 @@ const NAV = styled.div`
   cursor: pointer;
   justify-content: space-around;
 
-  display: ${(props) => (props.show ? "block" : "none")};
-
-  @media (min-width: 915px) {
-    display: block;
+  @media (max-width: 915px) {
+    display: none;
   }
 `;
 
@@ -168,10 +167,10 @@ const SearchIcon = styled(GoSearch)`
   font-size: 24px;
   color: #212124;
   cursor: pointer;
-  display: ${(props) => (props.show ? "none" : "block")};
+  display: none;
 
-  @media (min-width: 943px) {
-    display: none;
+  @media (max-width: 983px) {
+    display: block;
   }
 `;
 
@@ -180,10 +179,10 @@ const HamburgerIcon = styled(HiMiniBars3)`
   color: #212124;
   cursor: pointer;
 
-  display: ${(props) => (props.show ? "none" : "block")};
+  display: none;
 
-  @media (min-width: 915px) {
-    display: none;
+  @media (max-width: 915px) {
+    display: block;
   }
 `;
 
@@ -198,15 +197,14 @@ const Input = styled.input`
     outline: none;
   }
 
-  display: ${(props) => (props.show ? "block" : "none")};
-
-  @media (min-width: 943px) {
-    display: block;
+  @media (max-width: 983px) {
+    display: none;
   }
 `;
 
 const Chat = styled.div`
   margin-right: 12px;
+
   display: ${(props) => (props.show ? "block" : "none")};
   @media (min-width: 915px) {
     display: block;
@@ -227,10 +225,9 @@ const ChatButton = styled.button`
 const User = styled.div`
   align-items: center;
   justify-content: space-between;
-  display: ${(props) => (props.show ? "block" : "none")};
 
-  @media (min-width: 915px) {
-    display: block;
+  @media (max-width: 915px) {
+    display: none;
   }
 `;
 
@@ -246,13 +243,26 @@ const UserButton = styled.button`
 `;
 
 const DropdownMenu = styled.div`
+  display: ${(props) => (props.isMenuOpen ? "flex" : "none")};
   flex-direction: column;
-  position: absolute;
-  z-index: 998;
-  width: 100%;
+  position: fixed;
   top: 64px;
-  transition: 0.5s ease;
-  display: ${({ isMenuOpen }) => (isMenuOpen ? "flex" : "none")};
+  width: 100%;
+  font-size: 1rem;
+
+  @media (min-width: 915px) {
+    display: none;
+  }
 `;
 
-const MenuItem = styled.div``;
+const MenuItem = styled.div`
+  color: #212124;
+  padding: 1.6rem;
+  background-color: #ffffff;
+  border-bottom: 1px solid #e9ecef;
+
+  cursor: pointer;
+  &:hover {
+    background-color: #f2f3f6;
+  }
+`;
