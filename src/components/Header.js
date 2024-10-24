@@ -142,7 +142,6 @@ const Li = styled.li`
 `;
 
 const StyledLink = styled.span`
-  color: #212529;
   text-decoration: none;
   font-size: 18px;
   font-weight: bold;
