@@ -114,7 +114,6 @@ const DIV = styled.div`
   align-items: center;
   flex-wrap: wrap;
   overflow: hidden;
-
   @media (max-width: 915px) {
     justify-content: space-between;
   }
