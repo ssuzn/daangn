@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import Header from './components/Header';
 import Main from './pages/Main';
 import Footer from './components/Footer';
+import SignUp from './pages/SignUp';
 import Login from './pages/Login';
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
       <PageContent>
         <Routes>
           <Route path='/' element={<Main />} />
+          <Route path='/signup' element={<SignUp />} />
           <Route path='/login' element={<Login />} />
         </Routes>
       </PageContent>

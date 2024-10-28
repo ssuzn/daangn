@@ -82,17 +82,62 @@ function Header() {
 
         {isMenuOpen && (
           <DropdownMenu isMenuOpen={isMenuOpen}>
-            <MenuItem onClick={() => navigate("/fleamarket")}>
+            <MenuItem
+              onClick={() => {
+                navigate("/fleamarket");
+                setIsMenuOpen(false);
+              }}
+            >
               중고거래
             </MenuItem>
-            <MenuItem onClick={() => navigate("/nearby_stores")}>
+            <MenuItem
+              onClick={() => {
+                navigate("/nearby_stores");
+                setIsMenuOpen(false);
+              }}
+            >
               동네업체
             </MenuItem>
-            <MenuItem onClick={() => navigate("/jobs")}>알바</MenuItem>
-            <MenuItem onClick={() => navigate("/reality")}>부동산</MenuItem>
-            <MenuItem onClick={() => navigate("/cars")}>중고차 직거래</MenuItem>
-            <MenuItem onClick={() => navigate("/login")}>로그인</MenuItem>
-            <MenuItem>회원가입</MenuItem>
+            <MenuItem
+              onClick={() => {
+                navigate("/jobs");
+                setIsMenuOpen(false);
+              }}
+            >
+              알바
+            </MenuItem>
+            <MenuItem
+              onClick={() => {
+                navigate("/reality");
+                setIsMenuOpen(false);
+              }}
+            >
+              부동산
+            </MenuItem>
+            <MenuItem
+              onClick={() => {
+                navigate("/cars");
+                setIsMenuOpen(false);
+              }}
+            >
+              중고차 직거래
+            </MenuItem>
+            <MenuItem
+              onClick={() => {
+                navigate("/login");
+                setIsMenuOpen(false);
+              }}
+            >
+              로그인
+            </MenuItem>
+            <MenuItem
+              onClick={() => {
+                navigate("/signup");
+                setIsMenuOpen(false);
+              }}
+            >
+              회원가입
+            </MenuItem>
           </DropdownMenu>
         )}
       </DIV>

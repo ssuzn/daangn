@@ -44,7 +44,7 @@ function Login() {
   return (
     <React.Fragment>
       <DIV>
-        <Title>🥕로그인을 해주세요.</Title>
+        <Title>🥕 로그인을 해주세요.</Title>
         <LoginForm onSubmit={loginProcess}>
           <Input
             type="text"
