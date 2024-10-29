@@ -3,42 +3,60 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 
 function Login() {
-  const [userInfo, setUserInfo] = useState({
-    email: "",
-    password: "",
-  });
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-  // 통신 중 & 메시지 출력 중에는 버튼 클릭 불가 -> disabled(loading)
-  const [loading, setLoading] = useState(false);
+  const handleEmailChange = (e) => {
+    const email = e.target.value;
+    setEmail(email);
+  }
+
+  const handlePasswordChange = (e) => {
+      const { name, value } = e.target;
+      if (name === "password") {
+          setPassword(value);
+      }
+  }
 
   const navigate = useNavigate();
 
-  const handleSignup = () => {
-    navigate("/signup");
-  };
-
-  const handleInfoChange = (e) => {
-    const { name, value } = e.target;
-    setUserInfo((userInfo) => ({
-      ...userInfo, // 이전 userInfo 객체 복사
-      [name]: value, // name에 해당하는 속성만 업데이트
-    }));
-  };
-
   const loginProcess = (e) => {
     e.preventDefault();
-    if (!userInfo.email) {
-      return alert("Email을 입력하세요.");
+
+    if (!email) {
+      alert("Email을 입력하세요.");
+      return;
     }
-    else if (!userInfo.password) {
-      return alert("Password를 입력하세요.");
+
+    if (!password) {
+      alert("Password를 입력하세요.");
+      return;
+    } 
+
+    if (!/^[\w-.]+@[A-Za-z\d-]+\.[A-Za-z]{2,}$/.test(email)) {
+      alert("유효한 이메일 형식이 아닙니다.");
+      return;
+    }
+
+    if (!/^[a-z\d!@*&-_]{8,16}$/.test(password)) {
+      alert("8~16자의 영소문자, 숫자,!@*&-_만 입력 가능합니다.");
+      return;
+    }
+    
+    const storedEmails = JSON.parse(localStorage.getItem("registeredEmails")) || [];
+    const storedUserData = JSON.parse(localStorage.getItem("userData"));
+
+    if (!storedEmails.includes(email)) {
+      alert("회원 정보가 없습니다. 회원가입을 해주세요.");
+      return;
+    }
+
+    if (storedUserData.email ===  email && storedUserData.password === password) {
+      alert("로그인 성공!");
+      navigate("/");
     } else {
-      let body = {
-        email: userInfo.email,
-        password: userInfo.password,
-      };
+      alert("이메일 또는 비밀번호가 일치하지 않습니다.");
     }
-    setLoading(true);
   };
 
   return (
@@ -49,25 +67,26 @@ function Login() {
           <Input
             type="text"
             placeholder="이메일"
-            value={userInfo.email}
+            value={email}
             name="email"
-            onChange={handleInfoChange}
-          />
-          <Input
-            type="text"
-            placeholder="비밀번호"
-            value={userInfo.password}
-            name="password"
-            onChange={handleInfoChange}
+            onChange={handleEmailChange}
           />
 
-          <LoginButton type="submit" disabled={loading}>
+          <Input
+            type="password"
+            placeholder="비밀번호"
+            value={password}
+            name="password"
+            onChange={handlePasswordChange}
+          />
+
+          <LoginButton type="submit">
             로그인
           </LoginButton>
         </LoginForm>
 
         <ButtonContainer>
-          <Button onClick={handleSignup}>회원가입</Button>
+          <Button onClick={() => navigate("/signup")}>회원가입</Button>
           <Button>비밀번호 찾기</Button>
         </ButtonContainer>
       </DIV>
