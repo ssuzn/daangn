@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { login } from "../redux/reducers/userSlice";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -19,6 +21,7 @@ function Login() {
   }
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const loginProcess = (e) => {
     e.preventDefault();
@@ -52,7 +55,8 @@ function Login() {
     }
 
     if (storedUserData.email ===  email && storedUserData.password === password) {
-      alert("로그인 성공!");
+      dispatch(login({ email, username: storedUserData.username })); // 로그인 상태 업데이트
+      alert(`반가워요. ${storedUserData.username} 님!`);
       navigate("/");
     } else {
       alert("이메일 또는 비밀번호가 일치하지 않습니다.");

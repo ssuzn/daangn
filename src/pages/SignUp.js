@@ -7,6 +7,7 @@ function SignUp() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPwd, setConfirmPwd] = useState("");
+    const [username, setUsername] = useState("");
 
     // 에러 메시지 관리
     const [emailError, setEmailError] = useState("");
@@ -31,6 +32,11 @@ function SignUp() {
             setConfirmPwd(value);
             handlePasswordCheck(password, value);
         }
+    }
+
+    const handleUsernameChange = (e) => {
+      const username = e.target.value;
+      setUsername(username);
     }
 
     const handleEmailCheck = async (email) => {
@@ -80,13 +86,13 @@ function SignUp() {
         }
     }
 
-    const signup = async (email, password) => {
+    const signup = async (email, password, username) => {
         const storedEmails = JSON.parse(localStorage.getItem("registeredEmails")) || [];
 
         storedEmails.push(email);
         localStorage.setItem("registeredEmails", JSON.stringify(storedEmails));
 
-        const userData = { email, password };
+        const userData = { email, password, username };
         localStorage.setItem("userData", JSON.stringify(userData));
 
         return true;
@@ -110,6 +116,11 @@ function SignUp() {
             alert("비밀번호 확인을 입력해주세요.");
             return;
         }
+
+        if (!username) {
+          alert("이름을 입력해주세요.");
+            return;
+        }
         
         const emailCheckResult = await handleEmailCheck(email);
         if (emailCheckResult) setEmailError("");
@@ -124,7 +135,7 @@ function SignUp() {
         else return;
 
         try {
-            const responseData = await signup(email, password, confirmPwd);
+            const responseData = await signup(email, password, username);
             if (responseData) {
                 localStorage.setItem("loginEmail", email);
                 alert("회원가입이 완료되었습니다.");
@@ -170,6 +181,14 @@ function SignUp() {
             onChange={handlePasswordChange}
           />
           {confirmPwdError && <Error>{confirmPwdError}</Error>}
+
+          <Input 
+            type="text"
+            placeholder="이름을 입력해주세요."
+            value={username}
+            name='username'
+            onChange={handleUsernameChange}
+          />
 
           <SignupButton type="submit">
             회원가입

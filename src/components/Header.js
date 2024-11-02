@@ -1,19 +1,36 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../redux/reducers/userSlice";
 
 import logo from "../assets/images/logo.png";
 import { GoSearch } from "react-icons/go";
 import { HiMiniBars3 } from "react-icons/hi2";
 
-function Header() {
+function Header({ setIsLoading }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+
+  const username = useSelector((state) => state.user.username);
+  const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleMenuOpen = () => {
     setIsMenuOpen((prev) => !prev);
     console.log("Menu opened");
+  };
+
+  const logoutProcess = () => {
+    setIsLoading(true); // 로딩 시작
+
+    setTimeout(() => {
+      dispatch(logout());
+      localStorage.removeItem("loginEmail");
+      setIsLoading(false); // 로딩 종료
+      navigate("/");
+    }, 1000);
   };
 
   return (
@@ -75,10 +92,24 @@ function Header() {
           </Chat>
         </Side>
 
-        <User>
-          <UserButton onClick={() => navigate("/login")}>로그인</UserButton>
-          <UserButton onClick={() => navigate("/signup")}>회원가입</UserButton>
-        </User>
+        {isLoggedIn ? (
+          <User>
+            <UserButton onClick={() => navigate("/mypage")}>
+              {username} 님
+            </UserButton>
+
+              <UserButton 
+                onClick={logoutProcess}
+                >로그아웃</UserButton>
+          </User>
+        ) : (
+          <User>
+            <UserButton onClick={() => navigate("/login")}>로그인</UserButton>
+            <UserButton onClick={() => navigate("/signup")}>
+              회원가입
+            </UserButton>
+          </User>
+        )}
 
         {isMenuOpen && (
           <DropdownMenu isMenuOpen={isMenuOpen}>
@@ -122,22 +153,38 @@ function Header() {
             >
               중고차 직거래
             </MenuItem>
-            <MenuItem
-              onClick={() => {
-                navigate("/login");
-                setIsMenuOpen(false);
-              }}
-            >
-              로그인
-            </MenuItem>
-            <MenuItem
-              onClick={() => {
-                navigate("/signup");
-                setIsMenuOpen(false);
-              }}
-            >
-              회원가입
-            </MenuItem>
+
+            {!isLoggedIn ? (
+              <>
+                <MenuItem
+                  onClick={() => {
+                    navigate("/login");
+                    setIsMenuOpen(false);
+                  }}
+                >
+                  로그인
+                </MenuItem>
+                <MenuItem
+                  onClick={() => {
+                    navigate("/signup");
+                    setIsMenuOpen(false);
+                  }}
+                >
+                  회원가입
+                </MenuItem>
+              </>
+            ) : (
+              <>
+                <MenuItem
+                  onClick={() => {
+                    navigate("/mypage");
+                    setIsMenuOpen(false);
+                  }}
+                >
+                  마이페이지
+                </MenuItem>
+              </>
+            )}
           </DropdownMenu>
         )}
       </DIV>
@@ -283,6 +330,9 @@ const UserButton = styled.button`
   font-weight: bold;
   padding: 10px 17px 10px 17px;
   cursor: pointer;
+
+  &:hover {
+    text-decoration: underline;
 `;
 
 const DropdownMenu = styled.div`
