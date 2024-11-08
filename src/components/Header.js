@@ -3,9 +3,9 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../redux/reducers/userSlice";
+import SearchBar from "./SearchBar";
 
 import logo from "../assets/images/logo.png";
-import { GoSearch } from "react-icons/go";
 import { HiMiniBars3 } from "react-icons/hi2";
 
 function Header({ setIsLoading }) {
@@ -77,13 +77,7 @@ function Header({ setIsLoading }) {
         </NAV>
 
         <Side>
-          <Search>
-            <SearchIcon />
-            <Input
-              type="text"
-              placeholder="물품이나 동네를 검색해보세요"
-            ></Input>
-          </Search>
+          <SearchBar />
 
           <HamburgerIcon onClick={handleMenuOpen} />
 
@@ -248,22 +242,6 @@ const Side = styled.div`
   margin-right: 30px;
 `;
 
-const Search = styled.div`
-  margin-right: 12px;
-  color: #868b94;
-`;
-
-const SearchIcon = styled(GoSearch)`
-  font-size: 24px;
-  color: #212124;
-  cursor: pointer;
-  display: none;
-
-  @media (max-width: 983px) {
-    display: block;
-  }
-`;
-
 const HamburgerIcon = styled(HiMiniBars3)`
   font-size: 24px;
   color: #212124;
@@ -273,22 +251,6 @@ const HamburgerIcon = styled(HiMiniBars3)`
 
   @media (max-width: 915px) {
     display: block;
-  }
-`;
-
-const Input = styled.input`
-  background-color: #f2f3f6;
-  width: 288px;
-  height: 40px;
-  border: none;
-  border-radius: 4px;
-  font-size: 1rem;
-  &:focus {
-    outline: none;
-  }
-
-  @media (max-width: 983px) {
-    display: none;
   }
 `;
 
