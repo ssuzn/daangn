@@ -9,6 +9,7 @@ import Footer from './components/Footer';
 import SignUp from './pages/SignUp';
 import Login from './pages/Login';
 import Loading from './components/Loading';
+import PostList from './pages/PostList';
 
 function App() {
   const [isLoading, setIsLoading] = useState(false);
@@ -22,6 +23,7 @@ function App() {
           <Route path='/' element={<Main />} />
           <Route path='/signup' element={<SignUp />} />
           <Route path='/login' element={<Login />} />
+          <Route path='/fleamarket' element={<PostList />} />
         </Routes>
       </PageContent>
       <Footer></Footer>

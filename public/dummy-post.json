@@ -1,0 +1,82 @@
+[
+  {
+    "id": 1,
+    "title": "중고차 판매합니다.",
+    "description": "사용감은 있지만 성능 좋은 노트북입니다.",
+    "price": 500000,
+    "category": "자동차",
+    "imageUrl": "https://picsum.photos/id/133/200"
+  },
+  {
+    "id": 2,
+    "title": "아이폰 se2 카메라 용도로 사용 권장 싸게 넘깁니다",
+    "description": "약간의 흠집이 있지만 잘 굴러가는 자전거입니다.",
+    "price": 100000,
+    "category": "전자기기",
+    "imageUrl": "https://picsum.photos/id/160/200"
+  },
+  {
+    "id": 3,
+    "title": "빈티지 나무 책상 나눔합니다. 사용감 조금 있음",
+    "description": "튼튼한 나무 책상입니다.",
+    "price": 70000,
+    "category": "가구",
+    "imageUrl": "https://picsum.photos/id/180/200"
+  },
+  {
+    "id": 4,
+    "title": "맥북 Pro 16 2021",
+    "description": "주행거리 짧고 상태 좋은 중고차입니다.",
+    "price": 8000000,
+    "category": "노트북",
+    "imageUrl": "https://picsum.photos/id/201/200"
+  },
+  {
+    "id": 5,
+    "title": "저희 강아지 귀엽죠",
+    "description": "주행거리 짧고 상태 좋은 중고차입니다.",
+    "price": 0,
+    "category": "반려동물",
+    "imageUrl": "https://picsum.photos/id/237/200"
+  },
+  {
+    "id": 6,
+    "title": "민들레 후후 불고싶다",
+    "description": "민들레 꽃은 봄에 볼 수 있어요",
+    "price": 1000,
+    "category": "식물",
+    "imageUrl": "https://picsum.photos/id/239/200"
+  },
+  {
+    "id": 7,
+    "title": "선인장은 물을 안줘도 돼요",
+    "description": "선인장 키우기 쉬워요",
+    "price": 52000,
+    "category": "식물",
+    "imageUrl": "https://picsum.photos/id/248/200"
+  },
+  {
+    "id": 8,
+    "title": "낡은 카메라",
+    "description": "감성지게 들고 다니기 좋아요",
+    "price": 200000,
+    "category": "전자기기",
+    "imageUrl": "https://picsum.photos/id/250/200"
+  },
+  {
+    "id": 9,
+    "title": "갈매기다",
+    "description": "바다 갈매기 새우깡 좋아해",
+    "price": 2000,
+    "category": "반려동물",
+    "imageUrl": "https://picsum.photos/id/275/200"
+  },
+  {
+    "id": 10,
+    "title": "보리밭인가",
+    "description": "갈대인지 보리인지",
+    "price": 46000,
+    "category": "식물",
+    "imageUrl": "https://picsum.photos/id/277/200"
+  }
+]
