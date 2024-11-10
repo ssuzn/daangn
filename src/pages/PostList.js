@@ -1,11 +1,18 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { getPost } from "../utils/post";
+import { useNavigate } from "react-router-dom";
 
 function PostList() {
   const [posts, setPosts] = useState([]);
   const [visiblePosts, setVisiblePosts] = useState(4); // 초기 4개 포스트 표시
   const [columns, setColumns] = useState(4); // 초기 열 개수 설정
+
+  const navigate = useNavigate();
+
+  const handlePostClick = (id) => {
+    navigate(`/fleamarket/${id}`); 
+  };
 
   useEffect(() => {
     const getPosts = async () => {
@@ -37,7 +44,10 @@ function PostList() {
       <PostListContainer>
         <PostBox>
           {posts.slice(0, visiblePosts).map((post) => (
-            <Post key={post.id}>
+            <Post 
+              key={post.id}
+              onClick={() => handlePostClick(post.id) }
+            >
               <Thumbnail src={post.imageUrl} />
               <Title>{post.title}</Title>
               <Price>{post.price.toLocaleString()}원</Price>

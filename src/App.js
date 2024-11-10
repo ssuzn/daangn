@@ -10,6 +10,7 @@ import SignUp from './pages/SignUp';
 import Login from './pages/Login';
 import Loading from './components/Loading';
 import PostList from './pages/PostList';
+import PostDetail from './pages/PostDetail';
 
 function App() {
   const [isLoading, setIsLoading] = useState(false);
@@ -36,6 +37,7 @@ function App() {
           <Route path='/signup' element={<SignUp />} />
           <Route path='/login' element={<Login />} />
           <Route path='/fleamarket' element={<PostList />} />
+          <Route path='/fleamarket/:id' element={<PostDetail />} />
         </Routes>
       </PageContent>
       <Footer></Footer>
