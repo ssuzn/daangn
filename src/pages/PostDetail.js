@@ -72,17 +72,17 @@ function PostDetail() {
         </PostDetailBox>
       </PostDetailContainer>
 
-        <H3>인기매물</H3>
       <MoreSection>
+        <H3>인기매물</H3>
         <PostList>
-            {posts.map((post) => (
-                <PostItem key={post.id}>
-                    <Thumbnail src={post.imageUrl}></Thumbnail>
-                    <SmallTitle>{post.title}</SmallTitle>
-                    <SmallPrice>{post.price.toLocaleString()}원</SmallPrice>
-                    <SmallRegion>{post.region}</SmallRegion>
-                </PostItem>
-            ))}
+          {posts.map((post) => (
+            <PostItem key={post.id}>
+              <Thumbnail src={post.imageUrl}></Thumbnail>
+              <SmallTitle>{post.title}</SmallTitle>
+              <SmallPrice>{post.price.toLocaleString()}원</SmallPrice>
+              <SmallRegion>{post.region}</SmallRegion>
+            </PostItem>
+          ))}
         </PostList>
       </MoreSection>
     </React.Fragment>
@@ -98,7 +98,9 @@ const PostDetailContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 50px;
+  padding-left: 50px;
+  padding-right: 50px;
+  padding-top: 50px;
 `;
 
 const PostDetailBox = styled.div`
@@ -193,52 +195,67 @@ const Side = styled.p`
 `;
 
 const MoreSection = styled.div`
-    margin: 0 auto;
+  margin: 4rem;
   display: flex;
   flex-direction: column;
   padding: 20px;
   justify-content: center;
-  align-items: center;
 `;
 
 const H3 = styled.h3`
   font-size: 24px;
   font-weight: 700;
-  margin-top: 50px;
-  margin-left: 50px;
 `;
 
 const PostList = styled.div`
-display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  gap: 10px;
-  f
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  column-gap: 50px;
+  row-gap: 20px;
+
+  @media (max-width: 1200px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @media (max-width: 890px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
 `;
 
 const PostItem = styled.div`
   width: 100%;
   max-width: 250px;
-  flex-direction: column;
-  align-items: center;
   cursor: pointer;
 `;
 
 const Thumbnail = styled.img`
-  width: 100px;
-  height: 100px;
-  border-radius: 5px;
+  width: 250px;
+  height: 250px;
+  border-radius: 10px;
+  transition: all 0.2s linear;
+
+  &:hover {
+    transform: scale(1.05);
+  }
 `;
 
 const SmallTitle = styled.p`
   font-size: 16px;
   font-weight: 600;
   margin-bottom: 5px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 `;
 
 const SmallPrice = styled.p`
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 `;
 
 const SmallRegion = styled.p`
-  font-size: 14px;
-  color: #868b94;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 `;
