@@ -11,6 +11,7 @@ import Login from './pages/Login';
 import Loading from './components/Loading';
 import PostList from './pages/PostList';
 import PostDetail from './pages/PostDetail';
+import SearchPostList from './pages/SearchPostList';
 
 function App() {
   const [isLoading, setIsLoading] = useState(false);
@@ -38,6 +39,7 @@ function App() {
           <Route path='/login' element={<Login />} />
           <Route path='/fleamarket' element={<PostList />} />
           <Route path='/fleamarket/:id' element={<PostDetail />} />
+          <Route path='/search' element={<SearchPostList />} />
         </Routes>
       </PageContent>
       <Footer></Footer>
