@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setSearchTerm } from "../redux/reducers/searchSlice";
 import styled from "styled-components";
@@ -6,16 +6,9 @@ import { GoSearch } from "react-icons/go";
 import { useNavigate } from "react-router-dom";
 
 function SearchBar() {
-  const [iconVisible, setIconVisible] = useState(false);
-
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const searchTerm = useSelector((state) => state.search.searchTerm);
-  
-  // 검색 아이콘 토글
-  const toggleIcon = () => {
-    setIconVisible((prev) => !prev); 
-  };
   
   const handleChange = (e) => {
     dispatch(setSearchTerm(e.target.value));
